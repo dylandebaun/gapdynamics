@@ -19,7 +19,7 @@ void select_randloc_frm_cum_disp(int *ind1_coords, int size_x, int size_y, doubl
 
 void min_dist_bet_indiv(int J, double *LC_xcrd, double *LC_ycrd, double *threshold);
 
-void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int **speciescount, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
+void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
 
 void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, int **nongap_ycrd, double **speciescount, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
 

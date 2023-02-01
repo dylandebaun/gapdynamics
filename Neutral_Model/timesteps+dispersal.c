@@ -181,11 +181,6 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
     printf("%d\n",count);
     int b,thresholdlower,thresholdupper,countt;
     char *type;
-        //for a grouped gap
-    
-    for(i=0;i<631;i++){
-        printf("%d\t%d\n",gap_xcrd[i],gap_ycrd[i]);
-    }
     for(b =0; b<1;b++){
         if(b==0){
             type = "all";
@@ -196,7 +191,6 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
             speciescount1[0][k] = 0;
         }
         sumindiv = 0;
-      //  countt=0;
         for(t = 0; t < groupgapnum; t++){
            // if(groupgapsize[t] > thresholdlower && groupgapsize[t] <= thresholdupper){
             //    op++;
@@ -220,7 +214,6 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
            // for(q = 0; q< groupgapsize[t]; q++){
                 //for the real gap in the grouped gap, count the species
                 for(i = 0; i < gap_number; i++){
-                   // ingap = gapgroup[i];
                     if(gapgroup[i] == t){
                         for(j=0; j<n; j++){
                             x = LC_xcrdtemp[j];
@@ -233,19 +226,10 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
                                 printf("STOP! gxsize = %d,gysize=%d",gxsize,gysize);
                             }
                             if((x > gx) && (y > gy) && (y <= (gy+gysize)) && (x <= (gx+gxsize))){
-                                // printf("%d ", speciescount[i][spID[j]]);
-                               // p = parent_spp_IDtemp[j];
-                               // printf("%d\n",p);
                                 speciescount1[0][parent_spp_IDtemp[j]]++;
-                               // r=speciescount1[0][parent_spp_IDtemp[j]];
                                 sumindiv++;
-                                //if(speciescount[curr_year][i][spID[j]] > 0){
-                                
-                                // }
-                                // printf("%d,%d\n", parent_spp_IDtemp[j],r);
                             }
                         }
-                 //   }
                 }
             }
            

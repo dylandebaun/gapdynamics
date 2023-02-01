@@ -219,19 +219,19 @@ int main(int argc, char *argv[])
     
     //ACTUAL- get the observed compositions for each year
     //gap
-    run_actual("Observed_Community_Values/10cm85individuals30.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 30, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actual("Observed_Community_Values/10cm85individuals25.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 25, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actual("Observed_Community_Values/10cm85individuals20.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 20, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actual("Observed_Community_Values/10cm85individuals15.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 15, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actual("Observed_Community_Values/10cm85individuals10.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 10, groupgap, groupgapnum, groupgapsize, num_species);
-	run_actual("Observed_Community_Values/10cm85individuals5.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, speciescountpersim, 5, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actual("Observed_Community_Values/10cm85individuals30.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 30, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actual("Observed_Community_Values/10cm85individuals25.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps,  25, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actual("Observed_Community_Values/10cm85individuals20.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 20, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actual("Observed_Community_Values/10cm85individuals15.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 15, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actual("Observed_Community_Values/10cm85individuals10.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 10, groupgap, groupgapnum, groupgapsize, num_species);
+	run_actual("Observed_Community_Values/10cm85individuals5.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 5, groupgap, groupgapnum, groupgapsize, num_species);
     //nongap
-    run_actualnongap("Observed_Community_Values/10cm85individuals30.txt", outfile, nongap_xcrd, nongap_ycrd, speciescountpersim, 30, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actualnongap("Observed_Community_Values/10cm85individuals25.txt", outfile, nongap_xcrd, nongap_ycrd, speciescountpersim, 25, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actualnongap("Observed_Community_Values/10cm85individuals20.txt", outfile, nongap_xcrd, nongap_ycrd, speciescountpersim, 20, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actualnongap("Observed_Community_Values/10cm85individuals15.txt", outfile, nongap_xcrd, nongap_ycrd, speciescountpersim, 15, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actualnongap("Observed_Community_Values/10cm85individuals10.txt", outfile, nongap_xcrd, nongap_ycrd,speciescountpersim, 10, groupgap, groupgapnum, groupgapsize, num_species);
-    run_actualnongap("Observed_Community_Values/10cm85individuals5.txt", outfile, nongap_xcrd, nongap_ycrd, speciescountpersim, 5, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals30.txt", outfile, nongap_xcrd, nongap_ycrd,  30, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals25.txt", outfile, nongap_xcrd, nongap_ycrd,  25, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals20.txt", outfile, nongap_xcrd, nongap_ycrd,  20, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals15.txt", outfile, nongap_xcrd, nongap_ycrd,  15, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals10.txt", outfile, nongap_xcrd, nongap_ycrd, 10, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals5.txt", outfile, nongap_xcrd, nongap_ycrd,  5, groupgap, groupgapnum, groupgapsize, num_species);
     printf("done with actual\n");
 
     FILE *ifp;
