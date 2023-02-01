@@ -1,0 +1,39 @@
+**Input Files for Model and Statistics**
+
+10cmDBH_1985_individuals0.txt - starting landscape coordinates on 1000x500 landscape. Columns: species code, x_coordinate, y_coordinate, species code
+
+1985_canopydata.txt - Columns: x coordinate, y coordinate (of a 5x5 region), followed by if there is a tree present between 5 and 10 m, 10 and 20 m, 20 and 30 m, and above 30 m. This is used to identify gaps (defined as regions with no trees >10cm dbh above 5m)
+
+inputgaps.txt - parameterize the model
+
+PRINT PROGRESS - prints every 10% of the run
+
+SIZE - landscape will be 1000x500 (x y)
+
+DISPERSAL - set the kernel, can be fat_tailed, gaussian, global, or nearest_neighbor. Fat_tailed has parameters u=632, p=1, kernel_cutoff= 0.01, max_dispersal_distance = 10000. For info on parameterizing other kernels see get_input_info in initializelandscape.c
+
+TraitValues.csv - this contains the trait values for all the traits tested in this manuscript. WHERE ARE THEY OBTAINED FROM.
+
+**********************Model Files**********************
+
+Note: the model makes many intermediate output files (one composition file/simulation at each 5 year time interval for gaps and nongaps) that should all be stored in a folder to be used to calculate statistics
+
+Makefile - run ‘make’ to create the executable for the model
+
+initialize_landscape (.c/.h) - for reading in the input files, initializing the landscape with the coordinates, initialize choosing nongap spaces 
+
+general (.c/.h) - basic mathematics funcitons (e.g. distance), random location choosing functions, and functions for the distributions used in the dispersal kernels
+
+time_keeper (.c/.h) - functions for keeping time and printing time stamps
+
+timesteps+dispersal  (.c/.h) - functions for setting dispersal kernel, choosing location based on kernel, calculating the minimum distance between all individuals, and calculating the observed compositions
+
+stats_analysis (.c/.h) - functions for printing values read in, and calculating the compositon in the gaps and nongaps at the end of simulation
+
+main.c - the model which reads in input files, simulates over the landscape, and outputs the results
+
+**********Statistics Files**********
+
+stats_calculation_final.R - this rarefies the compositions in the observed and simulated communities to obtain equal densities. It then calculates a set of statistics (see paper) to 
+
+sourcefunctions.R - the functions used in the stats_calculation_final file to run the statistics and other functionalities (like averaging compositions)

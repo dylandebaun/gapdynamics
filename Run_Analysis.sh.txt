@@ -1,0 +1,40 @@
+#Run Model
+# Commands to execute C script. Have gcc installed.
+cd Neutral_Model
+make
+OUTDIR="outputs_of_model"
+PREFIX="run"
+START_SIM=0
+END_SIM=1
+
+mkdir $OUTDIR
+#./gap input_file starting_landscape_coords gap_location_file outfile_name start_sim# end_sim#
+./gap Input_Files_Model/input_file.txt Input_Files_Model/10cmDBH_1985_individuals0.txt Input_Files_Model/1985_canopydata.txt $OUTDIR/$PREFIX $START_SIM $END_SIM
+#500 simulations took ~8hrs with 50gb of MEM available
+
+#Run Statistics, Make Representations of SAD
+mv -r $OUTDIR ../Stats_Calculations
+mkdir results
+for GAPNUM in {1..11}
+do
+	for YEAR in {0..30..5}
+	do
+		#to run the overall calculations comparing neutral and observed communities
+		Rscript stats_calc_final.R $YEAR $GAPNUM $OUTDIR $PREFIX
+		#to compare the compositional deviations from neutral in gaps versus nongaps
+		Rscript Bray_Curtis_GapvNonGap.R $YEAR $GAPNUM $OUTDIR $PREFIX
+		
+	done
+done
+
+#to cacluclate Gap vs NonGap comparisons across time (for within each time, run Gap_vs_NonGap_Per_Year_Subsampling.R)
+Rscript Gap_vs_NonGap_Compare_Through_Time.R $OUTDIR $PREFIX
+
+#to caclulate the rank abundance curve across simulations and observed communities in 1990 (subsampled to the minimum community density which in this case is always the simulation)
+mkdir plots
+Rscript RankAbundanceCurve_GrowthSurvivalScore.R $OUTDIR $PREFIX
+
+#Make Figures
+mv results ../Figures
+
+
