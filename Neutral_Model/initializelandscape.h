@@ -26,4 +26,6 @@ void read_in_landscape(char *landscapefile, double **LC_xcrd, double **LC_ycrd, 
 
 void nongapsrandom(int *gapgroup, int *gapgroupsize, int gapgroupnum, int *gap_xcrd, int *gap_ycrd,  int numbersmallgaps, int **nongap_xcrdactual, int **nongap_ycrdactual,int size_x, int size_y);
 
+void groupgaps(int **gapgroup, int **gapgroupsize, int *gapgroupnum, int *gap_xcrd, int *gap_ycrd,  int numbersmallgaps);
+
 #endif /* initializelandscape_h */
