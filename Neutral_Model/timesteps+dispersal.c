@@ -103,9 +103,7 @@ void min_dist_bet_indiv(int J, double *LC_xcrd, double *LC_ycrd, double *thresho
 }
 
 //Calculates the observed compositions in gaps based on the given coordinate file for the whole landscape
-void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int **speciescount, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species){
-
-//}, double **LC_xcrd, double **LC_ycrd, int **parent_spp_ID, int *numind){
+void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species){
     //READ IN
     FILE *ifp;
     int dbh, sp;
