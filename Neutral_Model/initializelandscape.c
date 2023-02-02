@@ -105,7 +105,7 @@ void get_input_info(char *infile,
         status=fscanf(ifp, "%s", startstr);
         if(status == EOF){
             fclose(ifp);
-            printf("closed ifp");
+            printf("closed ifp \n");
         }
     }
     printf("FINISHED GETTING INPUT INFO!\n");
@@ -161,7 +161,7 @@ void read_in_landscape(char *landscapefile, double **LC_xcrd, double **LC_ycrd, 
         status=fscanf(ifp, "%d %f %f %d", &sp, &x1, &y1,&dbh);
         if(status == EOF){
              fclose(ifp);
-            printf("closed ifp");
+            printf("closed ifp \n");
         }
         //fflush(ifp);
         //fflush(NULL);

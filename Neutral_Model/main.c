@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
     for(i=0;i<700; i++){
         groupnongapsize[i] = -1;
     }
-    double **speciescountnongap, **speciescountrecruit,**speciescountnongaprecruits;
+    double **speciescountnongap;
     //, *speciescountmeta, *speciescountmetarecruits;
     speciescountnongap = calloc(500, sizeof(double *));
     for(i=0;i<500; i++){
@@ -380,10 +380,25 @@ int main(int argc, char *argv[])
                     d = get_rand_integ_intvl(fifteenyr+1,twentyyr);
                 }
             }else if(my_gen <= twentyfiveyr){
-                twentyyr= get_rand_integ_intvl(twentyyr+1,twentyfiveyr);
+                d = get_rand_integ_intvl(twentyyr+1,twentyfiveyr);
+                if(my_gen == twentyfiveyr-1){
+                  /*  for(i = twentyyr+1; i <= twentyfiveyr; i++){
+                        if(eventscape[i-1] != -1){
+                            printf( "%d \n", i);
+                        }
+                    }
+                    printf( "done one \n");
+                    for(i = 0; i <= twentyfiveyr+1; i++){
+                        if(eventscape[i-1] != -1){
+                            printf( "%d \n", i);
+                        }
+                    }
+                    printf( "done two \n");*/
+                }
                 while(eventscape[d-1] == -1){
                     d = get_rand_integ_intvl(twentyyr+1,twentyfiveyr);
                 }
+
             }else{
                 d = get_rand_integ_intvl(twentyfiveyr+1,ngen);
                 while(eventscape[d-1] == -1){
@@ -476,36 +491,36 @@ int main(int argc, char *argv[])
             }
             }
             eventscape[d-1] = -1; //we won't use that event again
-			printf("%f\n", my_gen);
+			//printf("%f\n", my_gen);
             
             //output the compositions at each 5 year interval
             if(my_gen == tenyr){
                 curr_year = 10;
-               print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+               print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
                 
             }
             if(my_gen == ngen){
                 curr_year = 30;
-               print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+               print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
              
             }
             if(my_gen == 5818){
                 curr_year = 5;
-                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
                 
             }
             if(my_gen == 15400){
                 curr_year = 15;
-                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
                 
             }
             if(my_gen == 20600){
                 curr_year = 20;
-                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
             }
             if(my_gen == 25800){
                 curr_year = 25;
-                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,speciescountnongaprecruits,speciescountrecruit,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
+                print_SAD_per_simulation_groupgaps(outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, s, LC_xcrd, LC_ycrd, J, parent_spp_ID,num_species,speciescountpersim, speciescountnongap,curr_year, groupgap, groupgapnum, groupgapsize, nongap_xcrd, nongap_ycrd, Jstart+1);
             }
         }
         printf( "Done with ngen loop. \n" );

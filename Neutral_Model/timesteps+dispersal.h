@@ -21,7 +21,7 @@ void min_dist_bet_indiv(int J, double *LC_xcrd, double *LC_ycrd, double *thresho
 
 void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
 
-void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, int **nongap_ycrd, double **speciescount, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
+void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, int **nongap_ycrd, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species);
 
 
 #endif /* timesteps_dispersal_h */

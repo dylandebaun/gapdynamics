@@ -99,7 +99,7 @@ void min_dist_bet_indiv(int J, double *LC_xcrd, double *LC_ycrd, double *thresho
         min_dist_total += min_dist;
     }
     *threshold = min_dist_total/J;
-    printf("average minimum distance = %f",*threshold);
+    printf("average minimum distance between individuals = %f \n",*threshold);
 }
 
 //Calculates the observed compositions in gaps based on the given coordinate file for the whole landscape
@@ -238,7 +238,6 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
            // printf("%d\n", speciescount1[t][22]);
             //upon getting all q gaps in the group gap tallied, write the group gap to a file
         }
-        printf("count here should be 554. is it: %d\n",sumindiv);
        // printf("%s: %d", type,countt);
         sprintf(outfile, "%sexpectedin%sat%dyrs.txt", begoutfile,type,curr_year);
         // printf("%d\n", speciescount1[t][22]);
@@ -260,7 +259,7 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
 }
 
 //Calculates the observed compositions in nongaps based on the given coordinate file for the whole landscape
-void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, int **nongap_ycrd, double **speciescount, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species){
+void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, int **nongap_ycrd, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int num_species){
    
     //}, double **LC_xcrd, double **LC_ycrd, int **parent_spp_ID, int *numind){
     //READ IN

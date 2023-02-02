@@ -78,7 +78,7 @@ void ascendingarray(int *samples){
     }
 }
 
-void print_SAD_per_simulation_groupgaps(char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int simnumber, double *LC_xcrd, double *LC_ycrd, int numindiv, int *spID, int num_species, double **speciescount, double **speciescountnongap, double **speciescountnongaprecruits, double **speciescountrecruit, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int **nongap_xcrd1, int **nongap_ycrd1, int numindivstart){
+void print_SAD_per_simulation_groupgaps(char *begoutfile, int *gap_xcrd, int *gap_ycrd, int *gap_sizex, int *gap_sizey, int gap_number, int simnumber, double *LC_xcrd, double *LC_ycrd, int numindiv, int *spID, int num_species, double **speciescount, double **speciescountnongap, int curr_year, int *gapgroup, int groupgapnum, int *groupgapsize, int **nongap_xcrd1, int **nongap_ycrd1, int numindivstart){
     int i,z,j,k,t,q;
     char outfile[MAX_FLNAME_SIZE];
     FILE *ofp;
@@ -140,9 +140,7 @@ void print_SAD_per_simulation_groupgaps(char *begoutfile, int *gap_xcrd, int *ga
             speciescount[0][k] = 0;
             for(i =0;i <10;i++){
             speciescountnongap[i][k] = 0;
-            speciescountrecruit[i][k] = 0;
             }
-            speciescountnongaprecruits[0][k] = 0;
         }
         for(t = 0; t < groupgapnum; t++){
             stop = 0;
@@ -225,8 +223,6 @@ void print_SAD_per_simulation_groupgaps(char *begoutfile, int *gap_xcrd, int *ga
                             if(LC_xcrd[j] != -1 && LC_xcrd[j] > gap_xcrd[i] && LC_ycrd[j] > gap_ycrd[i] && LC_ycrd[j] <= (gap_ycrd[i]+gap_sizey[i]) && LC_xcrd[j] <= (gap_xcrd[i]+gap_sizex[i])){
                                 // printf("%d ", speciescount[i][spID[j]]);
                                 p = spID[j];
-                                speciescountrecruit[0][spID[j]]++;
-                                r=speciescountrecruit[0][spID[j]];
                             }
                         }
                     }
@@ -246,8 +242,6 @@ void print_SAD_per_simulation_groupgaps(char *begoutfile, int *gap_xcrd, int *ga
                     if(LC_xcrd[j] != -1 && LC_xcrd[j] > nongap_xcrd[t] && LC_ycrd[j] > nongap_ycrd[t] && LC_ycrd[j] <= (nongap_ycrd[t]+gysize) && LC_xcrd[j] <= (nongap_xcrd[t]+gxsize)){
                         // printf("%d ", speciescount[i][spID[j]]);
                         p = spID[j];
-                        speciescountnongaprecruits[0][spID[j]]++;
-                        r=speciescountnongaprecruits[0][spID[j]];
                     }
                     //}
                 }
