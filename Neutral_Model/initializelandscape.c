@@ -99,8 +99,11 @@ void get_input_info(char *infile,
         }
         
         c = getc(ifp);
-        while (c != '\n'){
-            c=getc(ifp);
+        status=fscanf(ifp, "%s", startstr);
+        if(status != EOF){
+            while (c != '\n'){
+                c=getc(ifp);
+            }
         }
         status=fscanf(ifp, "%s", startstr);
         if(status == EOF){
