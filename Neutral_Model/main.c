@@ -192,7 +192,7 @@ int main(int argc, char *argv[])
     printf("Threshold value %f m.\n", threshd);
     
     read_in_landscape(startlandscape, &LC_xcrd_start, &LC_ycrd_start, &J , &parent_spp_IDstart,  &num_species);
-    
+   num_species = 328; 
     //sets threshold to average minimum distance between individuals. only use when you change the start landscape because it takes too long to run
     min_dist_bet_indiv(J,LC_xcrd_start,LC_ycrd_start, &threshd);
     
@@ -225,13 +225,15 @@ int main(int argc, char *argv[])
     run_actual("Observed_Community_Values/10cm85individuals15.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 15, groupgap, groupgapnum, groupgapsize, num_species);
     run_actual("Observed_Community_Values/10cm85individuals10.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 10, groupgap, groupgapnum, groupgapsize, num_species);
 	run_actual("Observed_Community_Values/10cm85individuals5.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 5, groupgap, groupgapnum, groupgapsize, num_species);
-    //nongap
+     run_actual("Observed_Community_Values/10cm85individuals0.txt", outfile, gap_xcrd, gap_ycrd, gap_size_x, gap_size_y, number_gaps, 0, groupgap, groupgapnum, groupgapsize, num_species);
+	//nongap
     run_actualnongap("Observed_Community_Values/10cm85individuals30.txt", outfile, nongap_xcrd, nongap_ycrd,  30, groupgap, groupgapnum, groupgapsize, num_species);
     run_actualnongap("Observed_Community_Values/10cm85individuals25.txt", outfile, nongap_xcrd, nongap_ycrd,  25, groupgap, groupgapnum, groupgapsize, num_species);
     run_actualnongap("Observed_Community_Values/10cm85individuals20.txt", outfile, nongap_xcrd, nongap_ycrd,  20, groupgap, groupgapnum, groupgapsize, num_species);
     run_actualnongap("Observed_Community_Values/10cm85individuals15.txt", outfile, nongap_xcrd, nongap_ycrd,  15, groupgap, groupgapnum, groupgapsize, num_species);
     run_actualnongap("Observed_Community_Values/10cm85individuals10.txt", outfile, nongap_xcrd, nongap_ycrd, 10, groupgap, groupgapnum, groupgapsize, num_species);
     run_actualnongap("Observed_Community_Values/10cm85individuals5.txt", outfile, nongap_xcrd, nongap_ycrd,  5, groupgap, groupgapnum, groupgapsize, num_species);
+    run_actualnongap("Observed_Community_Values/10cm85individuals0.txt", outfile, nongap_xcrd, nongap_ycrd,  0, groupgap, groupgapnum, groupgapsize, num_species);
     printf("done with actual\n");
 
     FILE *ifp;
