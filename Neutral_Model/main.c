@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
     
     start = atoi(start1);
     end = atoi(end1);
-   printf("start value %f ,end value %f.\n", start,end); 
+   //printf("start value %f ,end value %f.\n", start,end); 
     
     srand(time(NULL));
     //allocate arrays
@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
 
 	//Determine the number of 5x5 gaps that are touching to get gap 'size' this was used in the present paper to identify non-gap regions of similar size
     int groupgapnum = 0;
-    groupgaps(&groupgap, &groupgapsize, &groupgapnum, gap_xcrd, gap_ycrd,number_gaps);
+   groupgaps(&groupgap, &groupgapsize, &groupgapnum, gap_xcrd, gap_ycrd,number_gaps);
     
    char nongapgroup[MAX_FLNAME_SIZE];
 

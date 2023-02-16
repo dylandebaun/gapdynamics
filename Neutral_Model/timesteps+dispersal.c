@@ -239,9 +239,29 @@ void run_actual(char *landscapefile, char *begoutfile, int *gap_xcrd, int *gap_y
             //upon getting all q gaps in the group gap tallied, write the group gap to a file
         }
        // printf("%s: %d", type,countt);
-        sprintf(outfile, "%sexpectedin%sat%dyrs.txt", begoutfile,type,curr_year);
+//sprintf(outfile, "%sexpectedin%sat%dyrs.txt", begoutfile,type,curr_year);
+        //char outfile[200];
+        //FILE *ofp;
+        //sprintf(outfile,"outputs_of_model/runexpectedinallat30yrs.txt");
         // printf("%d\n", speciescount1[t][22]);
+        //ofp = fopen(outfile, "w");
+        
+#define MAX_FLNAME_SIZE 256
+
+    char outfile[MAX_FLNAME_SIZE];
+    FILE *ofp;
+
+    int num_chars_written = snprintf(outfile, MAX_FLNAME_SIZE, "outputs_of_model/runexpectedinallat30yrs.txt");
+
+        if (num_chars_written >= MAX_FLNAME_SIZE) {
+            printf("ERROR: outfile specification for actual landscape calculation is too big!");
+        }
+
         ofp = fopen(outfile, "w");
+        if (ofp == NULL) {
+            printf("ERROR: null result for outfile path for actual landscape calculation!");
+        }
+
         // printf("%d\n", speciescount1[t][22]);
         for(z=0;z<num_species; z++){
             // printf("%d\n", speciescount1[t][22]);
@@ -315,8 +335,7 @@ void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, 
     int z,j,k,t,q;
     char outfile[MAX_FLNAME_SIZE];
     FILE *ofp;
-    int ingap,g1,g2,g3,g4,p,r;
-    double lc1,lc2;
+    int p,r;
     int sumindiv = 0;
     int x,y,gx,gy,gxsize,gysize;
     double **speciescount1;
@@ -390,9 +409,17 @@ void run_actualnongap(char *landscapefile, char *begoutfile, int **nongap_xcrd, 
         }*/
         
         //printf("%s: %d", type,countt);
-        sprintf(outfile, "%s%dexpectedin%sat%dyrs.txt", begoutfile,q,type,curr_year);
-        // printf("%d\n", speciescount1[t][22]);
+        //sprintf(outfile, "%s%nongapdexpectedin%sat%dyrs.txt", begoutfile,q,type,curr_year);
+        int num_chars_written = snprintf(outfile, MAX_FLNAME_SIZE, "%s%longapdexpectedin%sat%dyrs.txt", begoutfile, q, type, curr_year);
+        if (num_chars_written >= MAX_FLNAME_SIZE) {
+            printf("ERROR: outfile specification for actual landscape calculation is too big!");
+        }
+
         ofp = fopen(outfile, "w");
+        if (ofp == NULL) {
+            printf("ERROR: null result for outfile path for actual landscape calculation!");
+        }
+        // printf("%d\n", speciescount1[t][22]);
         // printf("%d\n", speciescount1[t][22]);
         for(z=0;z<num_species; z++){
             // printf("%d\n", speciescount1[t][22]);

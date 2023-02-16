@@ -105,6 +105,7 @@ void get_input_info(char *infile,
                 c=getc(ifp);
             }
         }
+            
         status=fscanf(ifp, "%s", startstr);
         if(status == EOF){
             fclose(ifp);
