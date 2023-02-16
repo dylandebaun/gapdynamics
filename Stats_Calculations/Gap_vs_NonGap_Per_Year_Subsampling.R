@@ -23,7 +23,7 @@ for(j in 1:10){
     if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
     year = (yr-1)*5
     
-    title = paste0(out,"/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+    title = paste0(out,"/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
     totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
     densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
     
@@ -36,9 +36,9 @@ for(j in 1:10){
 #rarefy to minimum sample and make caclulations
 for(yr in 1:7){
   year = (yr-1)*5
-  dist_act <- matrix(0, nrow=10, ncol=17)
-  colnames(dist_act)<-c("rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density")
-  
+ dist_act <- matrix(0, ncol=37,nrow=1)
+        colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
+
   min_density = 10000
   for(j in 1:10){
     if(j == 1){
@@ -50,7 +50,7 @@ for(yr in 1:7){
     if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
     year = (yr-1)*5
     
-    title = paste0(out,"/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+    title = paste0(out,"/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
     totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
     densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
     
@@ -67,7 +67,7 @@ for(yr in 1:7){
     if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
     year = (yr-1)*5
     
-    title = paste0(out,"/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+    title = paste0(out,"/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
     totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
     densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
     
@@ -116,6 +116,20 @@ for(yr in 1:7){
       dist_act[s,"factorvar"] = traitvar(traitvals$growthsurv, actcomp)  + dist_act[s,"factorvar"]
       dist_act[s,"RGRvar"] = traitvar(traitvals$RGR, actcomp) + dist_act[s,"RGRvar"]
       dist_act[s,"SMvar"] = traitvar(traitvals$sm, actcomp)  + dist_act[s,"SMvar"]
+              dist_act[s,"lmavar"] = traitvar(traitvals$lma, actcomp)  + dist_act[s,"lmavar"]
+        dist_act[s,"ldmcvar"] = traitvar(traitvals$ldmc, actcomp) + dist_act[s,"ldmcvar"]
+        dist_act[s,"N_shadevar"] = traitvar(traitvals$N_shade, actcomp)  + dist_act[s,"N_shadevar"]
+        dist_act[s,"P_shadevar"] = traitvar(traitvals$P_shade, actcomp)  + dist_act[s,"P_shadevar"]
+        dist_act[s,"N_sunvar"] = traitvar(traitvals$N_sun, actcomp)  + dist_act[s,"N_sunvar"]
+        dist_act[s,"P_sunvar"] = traitvar(traitvals$P_sun, actcomp)  + dist_act[s,"P_sunvar"]
+        dist_act[s,"pca2var"] = traitvar(traitvals$pca2, actcomp)  + dist_act[s,"pca2var"]
+        dist_act[s,"lma"] = trait(traitvals$lma, actcomp) + dist_act[s,"lma"]
+        dist_act[s,"ldmc"] = trait(traitvals$ldmc, actcomp)  + dist_act[s,"ldmc"]
+        dist_act[s,"N_shade"] = trait(traitvals$N_shade, actcomp) + dist_act[s,"N_shade"]
+        dist_act[s,"P_shade"] = trait(traitvals$P_shade, actcomp)  + dist_act[s,"P_shade"]
+              dist_act[s,"N_sun"] = trait(traitvals$N_sun, actcomp) + dist_act[s,"N_sun"]
+        dist_act[s,"P_sun"] = trait(traitvals$P_sun, actcomp)  + dist_act[s,"P_sun"]
+        dist_act[s,"pca2"] = trait(traitvals$pca2, actcomp) + dist_act[s,"pca2"]
       if(j == 1){
         dist_act[s,"density"] = min_density  + dist_act[s,"density"]
       }else{

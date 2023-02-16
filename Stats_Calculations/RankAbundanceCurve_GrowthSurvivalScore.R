@@ -1,10 +1,18 @@
 #For Creating Rank Abundance Curves
-method = "final"
-numsim = 500
+#method = "final"
+#numsim = 500
 
 args <- commandArgs(trailingOnly = TRUE)
 out=as.character(args[1])
 method=as.character(args[2])
+outdir =as.character(args[3])
+method=as.character(args[4])
+startsim=as.numeric(args[5])
+endsim=as.numeric(args[6])
+
+startsim=startsim+1
+endsim=endsim
+numsim= endsim-startsim+1
 
 year=10
 gap_number=1
@@ -26,7 +34,7 @@ average_factor_value_act <-matrix(0, ncol=1,nrow=nsp)
 average_factor_value_sim <-matrix(0, ncol=1,nrow=nsp)
 countact <-matrix(0, ncol=1,nrow=nsp)
 countsim <-matrix(0, ncol=1,nrow=nsp)
-title = paste0(out,"/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+title = paste0(out,"/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
 totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
 densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
 
@@ -50,7 +58,6 @@ for(s in 1:numsim){
     #go to the column we want in the data space
     col_num = j + count_ngs
     testSAD<- totalcomposition[,col_num:(col_num+1)]
-    cat("fail1")
     colnames(testSAD)<-c("sp","n")
     
     #get the density for rarefying
@@ -94,9 +101,9 @@ for(s in 1:numsim){
    
     print(count)
     dist_testRA[,s] = testrankab[,2] 
-    print(testrankab)
+    #print(testrankab)
     dist_actRA[,count] = actrankab[,2] 
-    print(actrankab)
+    #print(actrankab)
 
     for(ijk in 1:dim(average_factor_value_act)[1]){
       if(!is.na(traitvals$growthsurv[actrankab[ijk,1]+1]) && (actrankab[ijk,2] != 0)){
@@ -108,8 +115,8 @@ for(s in 1:numsim){
       average_factor_value_sim[ijk,1] = traitvals$growthsurv[testrankab[ijk,1]+1] +  average_factor_value_sim[ijk,1]
       }
     }
-    print(average_factor_value_act)
-    print(average_factor_value_sim)
+    #print(average_factor_value_act)
+    #print(average_factor_value_sim)
   }
 }
 x= dist_actRA

@@ -1,5 +1,5 @@
-method = "final"
-numsim = 500
+#method = "final"
+#numsim = 500
 subsample_to_find_avg_distribution = FALSE
 nsp = 328
 count_ngs =0
@@ -13,7 +13,12 @@ year=as.numeric(args[1])
 gap_number=as.numeric(args[2])
 outdir =as.character(args[3])
 method=as.character(args[4])
+startsim=as.numeric(args[5])
+endsim=as.numeric(args[6])
 
+startsim=startsim+1
+endsim=endsim
+numsim= endsim-startsim+1
 
 for(j in gap_number:gap_number){ #j looks through each gap and nongap community
   if(j == 1){
@@ -24,7 +29,7 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
   }
       if(year == 0){
       	if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
-        title = paste0(outdir,"/",method,simtype,ng_num,"expectedin", "at",year,"yrs.txt")
+        title = paste0(outdir,"/",method,ng_num,simtype,"expectedinall", "at",year,"yrs.txt")
         totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
         densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
         dist_act <- matrix(0, ncol=37,nrow=1)
@@ -66,13 +71,13 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         colnames(dist_act)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WD_Variance","factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","lma","lmavar","ldmc","ldmcvar","Pshade","Pshadevar","Nshade","Nshadevar","Psun","Psunvar","Nsun","Nsunvar","pca2","pca2var")
         dist_sim = dist_act
         
-        title = paste0("results/",method,year,simtype,ng_num,"distresultsactual.csv")
+        title = paste0("results/",method,year,ng_num,simtype,"distresultsactual.csv")
         write.csv(dist_act,title,row.names = F)
-        title = paste0("results/",method,year,simtype,ng_num,"distresultssimulated.csv")
+        title = paste0("results/",method,year,ng_num,simtype,"distresultssimulated.csv")
         write.csv(dist_sim,title,row.names = F)
       }else{
         if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""} #get nongap number (from 0 to 9)
-        title = paste0("final_actual/","final",simtype,ng_num,"expectedin", "at",year,"yrs.txt")
+        title = paste0(outdir,"/",method,ng_num,simtype,"expectedinall", "at",year,"yrs.txt")
         totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
         densityactual = density(totalcompositionactual) #figure out density of the observed gap for subsampling
   
@@ -100,13 +105,13 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         dist_act <- matrix(0, ncol=37,nrow=numsim)
         colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
         
-        if(subsample_to_find_avg_cdf == FALSE){
+        if(subsample_to_find_avg_distribution == FALSE){
           ######make unsumbsampled distributions######
           #run through simulations
           for(s in 1:numsim){
             testcdf <-as.data.frame(matrix(c(0:(nsp-1), rep(0,nsp)),nrow = nsp, ncol =2))
             colnames(testcdf) <- c("abundance","n")
-            title = paste0("final10cm/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
+            title = paste0(outdir,"/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
             if(file.exists(title)){
               totalcomposition <- read.delim(title,header=F)
             }else{
@@ -147,8 +152,8 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
           ######make sumbsampled CDFs######
           #find minimum density
           simulation_minimum_density = densityactual
-          for(s in 1:numsim){
-            title = paste0("final10cm/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
+          for(s in startsim:endsim){
+            title = paste0(outdir,"/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
             if(file.exists(title)){
               totalcomposition <- read.delim(title,header=F)
             }else{
@@ -166,10 +171,10 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
           }
           
           #caclulate avg cdf/pp
-          for(s in 1:numsim){
+          for(s in startsim:endsim){
             testcdf <-as.data.frame(matrix(c(0:(nsp-1), rep(0,nsp)),nrow = nsp, ncol =2))
             colnames(testcdf) <- c("abundance","n")
-            title = paste0("final10cm/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
+            title = paste0(outdir,"/",method,"simulation",s-1,"allspeciescountyr",year,".txt") #read in file for that simulation
             if(file.exists(title)){
               totalcomposition <- read.delim(title,header=F)
             }else{
@@ -238,7 +243,7 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         }
         
         ##### rarefy samples######     
-        for(s in 1:numsim){
+        for(s in startsim:endsim){
           #rarefy 100 times to get accurate inference for each sample (averaging rarefied samples)
           for(y in 1:100){
             actcomp = totalcompositionactual

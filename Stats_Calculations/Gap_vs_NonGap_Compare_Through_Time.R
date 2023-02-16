@@ -24,7 +24,7 @@ for(j in 1:10){
     if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
     year = (yr-1)*5
       
-    title = paste0(out,"/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+    title = paste0(out,"/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
     totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
     densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
     
@@ -37,8 +37,8 @@ for(j in 1:10){
 #rarefy to minimum sample and make caclulations
 for(yr in 1:7){
   year = (yr-1)*5
-        dist_act <- matrix(0, ncol=28,nrow=10)
-        colnames(dist_act)<-c("bc","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P","Pvar","N","Nvar","pca2","pca2var")
+dist_act <- matrix(0, ncol=37,nrow=1)
+        colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
 #  dist_act <- matrix(0, nrow=10, ncol=18)
  # colnames(dist_act)<-c("bc","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density")
   
@@ -52,11 +52,11 @@ for(yr in 1:7){
     if(simtype == "nongap"){ ng_num = j-2 }else{ ng_num = ""}#get nongap number (from 0 to 9)
     year = (yr-1)*5
     
-    title = paste0(out, "/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+    title = paste0(out, "/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
     totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
     densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
     
-    title = paste0(out, "/",method,simtype,ng_num,recruittype,"expectedin",type, "at",0,"yrs.txt")
+    title = paste0(out, "/",method,ng_num,simtype,recruittype,"expectedin",type, "at",0,"yrs.txt")
     yr0comp <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
 
     #rarefy it 100 times
@@ -106,17 +106,21 @@ for(yr in 1:7){
       dist_act[s,"RGRvar"] = traitvar(traitvals$RGR, actcomp) + dist_act[s,"RGRvar"]
       dist_act[s,"SMvar"] = traitvar(traitvals$sm, actcomp)  + dist_act[s,"SMvar"]
       dist_act[s,"density"] = densityactual  + dist_act[s,"density"]
-        dist_act[s,"lmavar"] = traitvar(traitvals$lma, actcomp)  + dist_act[s,"lmavar"]
-        dist_act[s,"ldmcvar"] = traitvar(traitvals$ldma, actcomp) + dist_act[s,"ldmcvar"]
-        dist_act[s,"Nvar"] = traitvar(traitvals$N, actcomp)  + dist_act[s,"Nvar"]
-        dist_act[s,"Pvar"] = traitvar(traitvals$P, actcomp)  + dist_act[s,"Pvar"]
+              dist_act[s,"lmavar"] = traitvar(traitvals$lma, actcomp)  + dist_act[s,"lmavar"]
+        dist_act[s,"ldmcvar"] = traitvar(traitvals$ldmc, actcomp) + dist_act[s,"ldmcvar"]
+        dist_act[s,"N_shadevar"] = traitvar(traitvals$N_shade, actcomp)  + dist_act[s,"N_shadevar"]
+        dist_act[s,"P_shadevar"] = traitvar(traitvals$P_shade, actcomp)  + dist_act[s,"P_shadevar"]
+        dist_act[s,"N_sunvar"] = traitvar(traitvals$N_sun, actcomp)  + dist_act[s,"N_sunvar"]
+        dist_act[s,"P_sunvar"] = traitvar(traitvals$P_sun, actcomp)  + dist_act[s,"P_sunvar"]
         dist_act[s,"pca2var"] = traitvar(traitvals$pca2, actcomp)  + dist_act[s,"pca2var"]
         dist_act[s,"lma"] = trait(traitvals$lma, actcomp) + dist_act[s,"lma"]
         dist_act[s,"ldmc"] = trait(traitvals$ldmc, actcomp)  + dist_act[s,"ldmc"]
-        dist_act[s,"N"] = trait(traitvals$N, actcomp) + dist_act[s,"N"]
-        dist_act[s,"P"] = trait(traitvals$P, actcomp)  + dist_act[s,"P"]
-         dist_act[s,"pca2"] = trait(traitvals$pca2, actcomp) + dist_act[s,"pca2"]
-        
+        dist_act[s,"N_shade"] = trait(traitvals$N_shade, actcomp) + dist_act[s,"N_shade"]
+        dist_act[s,"P_shade"] = trait(traitvals$P_shade, actcomp)  + dist_act[s,"P_shade"]
+              dist_act[s,"N_sun"] = trait(traitvals$N_sun, actcomp) + dist_act[s,"N_sun"]
+        dist_act[s,"P_sun"] = trait(traitvals$P_sun, actcomp)  + dist_act[s,"P_sun"]
+        dist_act[s,"pca2"] = trait(traitvals$pca2, actcomp) + dist_act[s,"pca2"]
+
       title = paste0("results/trash",type,method,year,simtype,recruittype,"distresults_totalssnongap.csv")
       write.csv(dist_act,title,row.names = F)
     }

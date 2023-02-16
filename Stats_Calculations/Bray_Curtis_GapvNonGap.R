@@ -1,5 +1,5 @@
-method = "final"
-numsim = 500
+#method = "final"
+#numsim = 500
 type="all"
 simtype=""
 recruittype=""
@@ -8,13 +8,19 @@ year=as.numeric(args[1])
 gap_number=as.numeric(args[2])
 out=as.character(args[3])
 method=as.character(args[4])
+startsim=as.numeric(args[5])
+endsim=as.numeric(args[6])
+
+startsim=startsim+1
+endsim=endsim
+numsim= endsim-startsim+1
 
 nsp = 328
-numsim=500
+
 library(stats)
 source("sourcefunctions.R")
 ng_num = ""
-title = paste0(out, "/",method,simtype,ng_num,recruittype,"expectedin",type, "at",year,"yrs.txt")
+title = paste0(out, "/",method,ng_num,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
 totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
 densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
 
@@ -25,7 +31,7 @@ colnames(dist)<-c("bc_act","bc_sim","bc_diff")
 for(j in gap_number:gap_number){
 	simtype="nongap"
 	ng_num = j-1
-  title = paste0("final_actual/","final",simtype,j-1,recruittype,"expectedin",type, "at",year,"yrs.txt")
+  title = paste0(out,"/",method,j-1,simtype,recruittype,"expectedin",type, "at",year,"yrs.txt")
   totalcompositionactual_ng <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
   densityactual_ng = density(totalcompositionactual_ng) #figure out density of the actual gap for subsampling
   
@@ -36,7 +42,7 @@ for(j in gap_number:gap_number){
     for(y in 1:100){
       #nongap
       actcomp_ng = totalcompositionactual_ng
-      title = paste0("final10cm/",method,"simulation",s-1,type,"speciescountyr",year,".txt")
+      title = paste0(out, "/",method,"simulation",s-1,type,"speciescountyr",year,".txt")
       if(file.exists(title)){
         totalcomposition_ng <- read.delim(title,header=F)
       }else{
@@ -137,7 +143,7 @@ for(j in gap_number:gap_number){
       }
       #gap
       actcomp = totalcompositionactual
-      title = paste0("final10cm/",method,"simulation",s-1,type,"speciescountyr",year,".txt")
+      title = paste0(out, "/",method,"simulation",s-1,type,"speciescountyr",year,".txt")
       if(file.exists(title)){
         totalcomposition <- read.delim(title,header=F)
       }else{
