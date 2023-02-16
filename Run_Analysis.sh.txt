@@ -13,18 +13,21 @@ mkdir $OUTDIR
 #500 simulations took ~8hrs with 50gb of MEM available
 
 #Run Statistics, Make Representations of SAD
-mv -r $OUTDIR ../Stats_Calculations
+rm -rf ../Stats_Calculations/$OUTDIR
+mv $OUTDIR ../Stats_Calculations
+cd ../Stats_Calculations
 mkdir results
+
+module load R/R-4.0.2
 for GAPNUM in {1..11}
 do
-	for YEAR in {0..30..5}
-	do
-		#to run the overall calculations comparing neutral and observed communities
-		Rscript stats_calc_final.R $YEAR $GAPNUM $OUTDIR $PREFIX
-		#to compare the compositional deviations from neutral in gaps versus nongaps
-		Rscript Bray_Curtis_GapvNonGap.R $YEAR $GAPNUM $OUTDIR $PREFIX
-		
-	done
+        for YEAR in {0..30..5}
+        do
+                #to run the overall calculations comparing neutral and observed communities
+                Rscript stats_calculation_final.R $YEAR $GAPNUM $OUTDIR $PREFIX $START_SIM $END_SIM
+                #to compare the compositional deviations from neutral in gaps versus nongaps
+                Rscript Bray_Curtis_GapvNonGap.R $YEAR $GAPNUM $OUTDIR $PREFIX $START_SIM $END_SIM
+        done
 done
 
 #to cacluclate Gap vs NonGap comparisons across time (for within each time, run Gap_vs_NonGap_Per_Year_Subsampling.R)
@@ -32,9 +35,10 @@ Rscript Gap_vs_NonGap_Compare_Through_Time.R $OUTDIR $PREFIX
 
 #to caclulate the rank abundance curve across simulations and observed communities in 1990 (subsampled to the minimum community density which in this case is always the simulation)
 mkdir plots
-Rscript RankAbundanceCurve_GrowthSurvivalScore.R $OUTDIR $PREFIX
+Rscript RankAbundanceCurve_GrowthSurvivalScore.R $OUTDIR $PREFIX $OUTDIR $PREFIX $START_SIM $END_SIM
 
 #Make Figures
 mv results ../Figures
+cd Figures
 
 
