@@ -104,13 +104,11 @@ void get_input_info(char *infile,
             while (c != '\n'){
                 c=getc(ifp);
             }
-        }
-            
-        status=fscanf(ifp, "%s", startstr);
-        if(status == EOF){
+        }else{
             fclose(ifp);
             printf("closed ifp \n");
         }
+
     }
     printf("FINISHED GETTING INPUT INFO!\n");
     printf("--------------------------------\n\n");
