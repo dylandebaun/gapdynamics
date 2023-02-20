@@ -32,9 +32,9 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         title = paste0(outdir,"/",method,ng_num,simtype,"expectedinall", "at",year,"yrs.txt")
         totalcompositionactual <- read.delim(title, header =  F, col.names =  c("sp", "n"),sep="")
         densityactual = density(totalcompositionactual) #figure out density of the actual gap for subsampling
-        dist_act <- matrix(0, ncol=37,nrow=1)
-        colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
-	      actcomp = totalcompositionactual
+        dist_act <- matrix(0, ncol=40,nrow=numsim)
+               colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","lma_unpub","lmavar_unpub","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var","wind")
+        actcomp = totalcompositionactual
 
 	      s=1
         dist_act[s,"rich"] = rich(actcomp) + dist_act[s,"rich"]
@@ -68,7 +68,10 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
 	      dist_act[s,"N_sun"] = trait(traitvals$N_sun, actcomp) + dist_act[s,"N_sun"]
         dist_act[s,"P_sun"] = trait(traitvals$P_sun, actcomp)  + dist_act[s,"P_sun"]
         dist_act[s,"pca2"] = trait(traitvals$pca2, actcomp) + dist_act[s,"pca2"]
-        colnames(dist_act)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WD_Variance","factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","lma","lmavar","ldmc","ldmcvar","Pshade","Pshadevar","Nshade","Nshadevar","Psun","Psunvar","Nsun","Nsunvar","pca2","pca2var")
+        dist_act[s,"wind"] = trait(traitvals$wind, actcomp) + dist_act[s,"wind"]
+
+        colnames(dist_act)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","Effective_Species_expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WoddDensity_Variance","Factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","LMA_published_DISC","LMA_published_DISC_variance","LMA_UNpublished_DISC_variance","LMA_UNpublished_DISC_variance","LDMC_unpublished","LDMC_unpublished_variance","Pshade","Pshadevar","Nshade","Nshadevar","Phosphorous_sun","Phosphorous_sun_var","Nitrogen_sun","Nitrogen_sun_variance","pca2","pca2var","WindDispersal")
+
         dist_sim = dist_act
         
         title = paste0("results/",method,year,ng_num,simtype,"distresultsactual.csv")
@@ -98,13 +101,13 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         colnames(compavg) <- c("sp","n")
         
         #create distance matrices (difference, simulated, actual)
-        dist <- matrix(0, ncol=37,nrow=numsim)
-        colnames(dist)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
-        dist_sim <- matrix(0, ncol=37,nrow=numsim)
-        colnames(dist_sim)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
-        dist_act <- matrix(0, ncol=37,nrow=numsim)
-        colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var")
-        
+        dist <- matrix(0, ncol=40,nrow=numsim)
+                colnames(dist)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","lma_unpub","lmavar_unpub","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var","wind")
+                dist_sim <- matrix(0, ncol=40,nrow=numsim)
+                colnames(dist_sim)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","lma_unpub","lmavar_unpub","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var","wind")
+                dist_act <- matrix(0, ncol=40,nrow=numsim)
+                colnames(dist_act)<-c("ks","ksunsub","pp","ppunsub","bc","bcunsub","rich","even","H","expH","wd","factor","SM","RGR","wdvar","factorvar","SMvar","RGRvar","wdcov","factorcov","SMcov","RGRcov","density","lma","lmavar","lma_unpub","lmavar_unpub","ldmc","ldmcvar","P_shade","P_shadevar","N_shade","N_shadevar","P_sun","P_sunvar","N_sun","N_sunvar","pca2","pca2var","wind")
+
         if(subsample_to_find_avg_distribution == FALSE){
           ######make unsumbsampled distributions######
           #run through simulations
@@ -524,6 +527,10 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
             dist_sim[s,"pca2"] =trait(traitvals$pca2, testSAD) + dist_sim[s,"pca2"]
             dist[s,"pca2"] = trait(traitvals$pca2, actcomp) - trait(traitvals$pca2, testSAD) + dist[s,"pca2"]
             
+            dist_act[s,"wind"] = trait(traitvals$wind, actcomp) + dist_act[s,"wind"]
+            dist_sim[s,"wind"] =trait(traitvals$wind, testSAD) + dist_sim[s,"wind"]
+            dist[s,"wind"] = trait(traitvals$wind, actcomp) - trait(traitvals$wind, testSAD) + dist[s,"wind"]
+            
             
             title = paste0("results/trash",method,year,simtype,ng_num,"distresultsactual.csv")
             write.csv(dist_act,title,row.names = F)
@@ -541,9 +548,10 @@ for(j in gap_number:gap_number){ #j looks through each gap and nongap community
         dist = dist/100
         dist_act = dist_act/100
         dist_sim = dist_sim/100
-        colnames(dist)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WD_Variance","factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","lma","lmavar","ldmc","ldmcvar","Pshade","Pshadevar","Nshade","Nshadevar","Psun","Psunvar","Nsun","Nsunvar","pca2","pca2var")
-        colnames(dist_sim)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WD_Variance","factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","lma","lmavar","ldmc","ldmcvar","Pshade","Pshadevar","Nshade","Nshadevar","Psun","Psunvar","Nsun","Nsunvar","pca2","pca2var")
-        colnames(dist_act)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WD_Variance","factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","lma","lmavar","ldmc","ldmcvar","Pshade","Pshadevar","Nshade","Nshadevar","Psun","Psunvar","Nsun","Nsunvar","pca2","pca2var")
+        colnames(dist)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","Effective_Species_expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WoddDensity_Variance","Factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","LMA_published_DISC","LMA_published_DISC_variance","LMA_UNpublished_DISC_variance","LMA_UNpublished_DISC_variance","LDMC_unpublished","LDMC_unpublished_variance","Pshade","Pshadevar","Nshade","Nshadevar","Phosphorous_sun","Phosphorous_sun_var","Nitrogen_sun","Nitrogen_sun_variance","pca2","pca2var","WindDispersal")
+        colnames(dist_sim)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","Effective_Species_expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WoddDensity_Variance","Factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","LMA_published_DISC","LMA_published_DISC_variance","LMA_UNpublished_DISC_variance","LMA_UNpublished_DISC_variance","LDMC_unpublished","LDMC_unpublished_variance","Pshade","Pshadevar","Nshade","Nshadevar","Phosphorous_sun","Phosphorous_sun_var","Nitrogen_sun","Nitrogen_sun_variance","pca2","pca2var","WindDispersal")
+        colnames(dist_act)<-c("KS_CDF_test","KS_CDF_test_unsamplesavg","Chi_Sq_Preston_Plot","Chi_Sq_Preston_Plot_unsamplesavg","Bray_Curtis_Dissimilarity","Bray_Curtis_Dissimilarity_unsamplesavg","Richness","Evenness","Shannons_H_Diversity","Effective_Species_expH","Wood_Density","Factor_Score","Seed_Mass","RGR","WoddDensity_Variance","Factor_variance","SMvariance","RGRvariance","WDcovar","Factorcovar","SMcovar","RGRcovar","density","LMA_published_DISC","LMA_published_DISC_variance","LMA_UNpublished_DISC_variance","LMA_UNpublished_DISC_variance","LDMC_unpublished","LDMC_unpublished_variance","Pshade","Pshadevar","Nshade","Nshadevar","Phosphorous_sun","Phosphorous_sun_var","Nitrogen_sun","Nitrogen_sun_variance","pca2","pca2var","WindDispersal")
+        
         
         title = paste0("results/all",method,year,simtype,ng_num,"distresultsactual.csv")
         write.csv(dist_act,title,row.names = F)

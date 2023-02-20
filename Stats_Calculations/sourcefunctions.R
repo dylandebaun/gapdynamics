@@ -6,8 +6,6 @@ total <- sum(SAD[,2])
 sadcount[,2] = maxtomin[,2]
 sadcount[,2] = sadcount[,2]/total
 sadcount[,1] = maxtomin[,1]
-#sadcount[,2] = log10(sadcount[,2])
-#sadcount[is.infinite(sadcount[,2]),2] = 0
 	return(sadcount)
 }
 
@@ -136,31 +134,6 @@ sortgaps <-function(gaplocations){
   }
   return(gaplocations)
  }
-# sortgaps <-function(gaplocations){
-#   for (k in 1:dim(gaplocations)[1]){
-#     for (l in 1:dim(gaplocations)[1]){
-#       if (isTRUE((gaplocations$gapsizex[l]*gaplocations$gapsizey[l]) < (gaplocations$gapsizex[k]*gaplocations$gapsizey[k]))) {
-#         tmp = gaplocations$x[k]
-#         tmp2 = gaplocations$y[k]
-#         tmp3=gaplocations$gapsizex[k]
-#         tmp4 = gaplocations$gapsizey[k]
-#         tmp5 = gaplocations$gapnum[k]
-#         gaplocations$x[k] = gaplocations$x[l]
-#         gaplocations$x[l] = tmp
-#         gaplocations$y[k] = gaplocations$y[l]
-#         gaplocations$y[l] = tmp2
-#         gaplocations$gapsizex[k] = gaplocations$gapsizex[l]
-#         gaplocations$gapsizex[l] = tmp3
-#         gaplocations$gapsizey[k] =  gaplocations$gapsizey[l]
-#         gaplocations$gapsizey[l] = tmp4
-#         gaplocations$gapnum[k] =  gaplocations$gapnum[l]
-#         gaplocations$gapnum[l] = tmp5
-#         
-#       }
-#     }
-#   }
-#   return(gaplocations)
-# }
 
 orderbyotherSAD <- function(averageSAD,actualSAD){
     for(i in 1:dim(actualSAD)[1]){
@@ -252,7 +225,6 @@ propCDF <- function(cdf){
   return(cdf)
 }
 
-
 shannon <- function(SAD){
   H = 0
   sumofsp = 0
@@ -304,59 +276,25 @@ chi <-function(ppobs, ppexp){
   }
   return(chisq)
 }
-# chi <-function(ppobs, ppexp){
-#   chisq = 0
-#   for(j in 1:dim(ppobs)[1]){
-#     obs = ppobs$n[j] + 1
-#     exp = ppexp$n[j] + 1
-#       chisq = ((obs-exp)*(obs-exp)/exp) + chisq
-#   }
-#   return(chisq)
-# }
 
 trait<- function(traitvals, testSAD){
-  avg = 0
-  count = 0
-  for(i in 1:dim(testSAD)[1]){
-    if(isFALSE(is.na(traitvals[i])) && isTRUE(is.numeric(traitvals[i]))){
-    avg = (testSAD$n[i] * traitvals[i]) + avg
-    count = testSAD$n[i] +count
-    }
-  }
-  avg = avg/count
-  var = 0
-  for(i in 1:dim(testSAD)[1]){
-        if(isFALSE(is.na(traitvals[i])) && isTRUE(is.numeric(traitvals[i]))){
-      var = var + (((testSAD$n[i] * traitvals[i]) - avg)*((testSAD$n[i] * traitvals[i]) - avg))
-    }
-  }
-  var = var/(count-1)
-  return(avg)
+  wmean = weighted.mean(x = traitvals, w = testSAD$n, na.rm = TRUE)
+  return(wmean)
 }
 
 traitvar<- function(traitvals, testSAD){
-  avg = 0
-  count = 0
+  wmean = weighted.mean(x = traitvals, w = testSAD$n, na.rm = TRUE)
+  testSAD$proportions = testSAD$n/sum(testSAD$n)
+  variance = 0
   for(i in 1:dim(testSAD)[1]){
-    if(isFALSE(is.na(traitvals[i])) && isTRUE(is.numeric(traitvals[i]))){
-    avg = (testSAD$n[i] * traitvals[i]) + avg
-    count = testSAD$n[i] +count
-    }
+	  if(isFALSE(is.na(traitvals[i])) && isTRUE(is.numeric(traitvals[i]))){
+    variance = variance + (testSAD$proportions[i]*((traitvals[i]-wmean)^2))
+	  }
   }
-  avg = avg/count
-    var = 0
-  for(i in 1:dim(testSAD)[1]){
-        if(isFALSE(is.na(traitvals[i])) && isTRUE(is.numeric(traitvals[i]))){
-        for(p in 1:testSAD$n[i]){
-            var = var + (((traitvals[i]) - avg)*((traitvals[i]) - avg))
-          }
-        }
-      }
-  var = var/(count-1)
-  cov = sqrt(var)/avg
-
-  return((var))
+  VA = sum(testSAD$proportions*((traitvals-wmean)^2), na.rm=T)
+return(VA)
 }
+
 traitcov<- function(traitvals, testSAD){
     avg = 0
     count = 0
@@ -449,14 +387,12 @@ createSAD <-function(sample, nsp){
   return(sad)
 }
 
-
 rowsalive <- function(year, bci,method){
   specieskey <-read.csv("~/Desktop/bci project/specieskeyrf.csv")
   rownames(specieskey)<-specieskey$sp
   tree <- c(0)
   ids <- c(tree)
   for(i in 1:dim(bci)[1]){
-    #if(isTRUE(bci$dbh[i] > specieskey[as.character(bci$sp[i]),"rf"]) && isTRUE(bci$status[i] == "A")){
     if(isTRUE(bci$dbh[i] > 99) && isTRUE(bci$status[i] == "A")){
       ids<- rbind(ids, c(i))
     }
