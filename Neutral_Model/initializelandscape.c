@@ -146,8 +146,9 @@ void read_in_landscape(char *landscapefile, double **LC_xcrd, double **LC_ycrd, 
     printf("Now initializing the landscape from %s\n", landscapefile);
     //col1 = species, col 1=x coord, col2=y coord, col4=dbh (delete the rest of the columns)
     ifp = fopen(landscapefile, "r");
+    printf("Read file\n");
     status=fscanf(ifp, "%d %f %f %d", &sp, &x1, &y1,&dbh);
-
+    printf("Species is  %d\n", sp);
     //fflush(ifp);
     
     while (status != EOF) {

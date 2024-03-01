@@ -1,12 +1,17 @@
 BASE    = .
 MAIN    = .
 EFILE   = gap
-MYLIBS  = .
+MYLIBS  = $(MAIN)
 CC      = cc
 CFLAGS  = -g -I $(MYLIBS)
 
-
-OBJS = $(MAIN)/main.o $(MAIN)/initializelandscape.o $(MAIN)/stats_analysis.o $(MAIN)/timesteps+dispersal.o $(MAIN)/time_keeper.o $(MYLIBS)/general.o
+# List the source files in the specified directory
+OBJS = $(MAIN)/main.o \
+	$(MAIN)/initializelandscape.o \
+ 	$(MAIN)/stats_analysis.o \
+	$(MAIN)/timesteps+dispersal.o \
+	$(MAIN)/time_keeper.o \
+	$(MAIN)/general.o
 
 $(EFILE): $(OBJS)
 	$(CC) $(CFLAGS) -o $(EFILE) $(OBJS) -lm

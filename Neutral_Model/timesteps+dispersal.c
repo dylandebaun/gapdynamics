@@ -488,3 +488,4 @@ void select_randloc_frm_cum_disp(int *ind1_coords, int size_x, int size_y, doubl
             }
     }
 }
+
